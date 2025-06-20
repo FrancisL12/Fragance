@@ -206,7 +206,7 @@ body {
 .credits-footer { color: #FFD700; font-family: 'Playfair Display', serif; font-size: 1.1rem; text-align: center; margin-top: 2rem; margin-bottom: 2rem; opacity: 0.8; }
 .action-buttons { margin-top: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 2rem; }
 .cta-section { width: 100%; max-width: 600px; padding: 2rem; background: #1a1a1a; border-radius: 12px; border: 1px solid #333333; text-align: center; }
-.cta-section::before { content: '🚨 ⚠'; display: block; font-size: 1.5rem; margin-bottom: 1rem; }
+.cta-section::before { content: '🚨'; display: block; font-size: 1.5rem; margin-bottom: 1rem; }
 .cta-text { color: #cccccc; margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.6; }
 
 /* Responsive Design */
