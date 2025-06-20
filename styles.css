@@ -65,7 +65,16 @@ body {
     text-align: center;
     color: #cccccc;
     font-size: 1.1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem; /* Ajustei a margem inferior do subtítulo */
+}
+
+/* Nova barra de separação */
+.separator {
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    margin: 1.5rem auto;
+    border-radius: 3px;
 }
 
 .welcome-content {
@@ -88,10 +97,10 @@ body {
 
 /* Buttons */
 .btn-primary, .btn-secondary, .btn-whatsapp {
-    padding: 15px 30px;
+    padding: 18px 36px; /* Aumentei o padding para o botão ficar maior */
     border: none;
     border-radius: 50px;
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Aumentei a fonte do botão */
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -103,6 +112,7 @@ body {
 .btn-primary {
     background: linear-gradient(45deg, #FFD700, #FFA500);
     color: #000000;
+    margin-top: -1rem; /* Margem superior negativa para subir o botão */
 }
 
 .btn-primary:hover {
@@ -173,7 +183,28 @@ body {
     font-weight: 500;
 }
 
-.form-group input[type="text"] {
+.form-group input::placeholder {
+    color: #666666;
+}
+
+.form-group input::ms-input-placeholder {
+    color: #666666;
+}
+
+.form-group input::-ms-input-placeholder {
+    color: #666666;
+}
+
+.form-group input::-webkit-input-placeholder {
+    color: #666666;
+}
+
+.form-group input::-moz-placeholder {
+    color: #666666;
+    opacity: 1;
+}
+
+.form-group input {
     width: 100%;
     padding: 12px 16px;
     border: 2px solid #333333;
@@ -184,7 +215,7 @@ body {
     transition: border-color 0.3s ease;
 }
 
-.form-group input[type="text"]:focus {
+.form-group input:focus {
     outline: none;
     border-color: #FFD700;
 }
@@ -196,7 +227,28 @@ body {
     gap: 1rem;
 }
 
-.photo-upload input[type="file"] {
+.photo-upload input::placeholder {
+    color: #666666;
+}
+
+.photo-upload input::ms-input-placeholder {
+    color: #666666;
+}
+
+.photo-upload input::-ms-input-placeholder {
+    color: #666666;
+}
+
+.photo-upload input::-webkit-input-placeholder {
+    color: #666666;
+}
+
+.photo-upload input::-moz-placeholder {
+    color: #666666;
+    opacity: 1;
+}
+
+.photo-upload input {
     display: none;
 }
 
@@ -245,7 +297,28 @@ body {
     border-color: #FFD700;
 }
 
-.radio-option input[type="radio"] {
+.radio-option input::placeholder {
+    color: #666666;
+}
+
+.radio-option input::ms-input-placeholder {
+    color: #666666;
+}
+
+.radio-option input::-ms-input-placeholder {
+    color: #666666;
+}
+
+.radio-option input::-webkit-input-placeholder {
+    color: #666666;
+}
+
+.radio-option input::-moz-placeholder {
+    color: #666666;
+    opacity: 1;
+}
+
+.radio-option input {
     margin-right: 12px;
     accent-color: #FFD700;
 }
@@ -273,9 +346,9 @@ body {
 .options-list-simple {
     display: flex;
     flex-direction: column;
-    gap: 1rem; 
+    gap: 1rem;
     width: 100%;
-    max-width: 500px; 
+    max-width: 500px;
     margin: 2rem auto 0;
 }
 
@@ -389,7 +462,7 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-    margin-bottom: 0; /* CORREÇÃO: Margem inferior zerada */
+    margin-bottom: 0;
 }
 
 .info-section {
@@ -415,6 +488,7 @@ body {
     text-align: center;
     margin-bottom: 1.5rem;
 }
+
 .curiosity-item:last-child {
     margin-bottom: 0;
 }
@@ -479,25 +553,25 @@ body {
 }
 
 .action-buttons {
-    margin-top: 2rem;  /* CORREÇÃO: Margem superior ajustada para o padrão */
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    gap: 2rem; 
+    align-items: center;
+    gap: 2rem;
 }
 
 .cta-section {
     width: 100%;
-    max-width: 600px; 
+    max-width: 600px;
     padding: 2rem;
     background: #1a1a1a;
     border-radius: 12px;
     border: 1px solid #333333;
-    text-align: center; 
+    text-align: center;
 }
 
 .cta-section::before {
-    content: '🚨'; 
+    content: '🚨';
     display: block;
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -514,7 +588,7 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     text-align: center;
-    margin-top: 2.5rem; 
+    margin-top: 2.5rem;
     margin-bottom: 1rem;
     opacity: 0.8;
 }
