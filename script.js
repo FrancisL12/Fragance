@@ -1,6 +1,8 @@
-// ===============================================
-// V2 - COM LÓGICA DE CROP DE IMAGEM
-// ===============================================
+/*
+ * Copyright (c) 2024 Lord Aroma - Francisco Leite.
+ * Todos os direitos reservados. A reprodução, distribuição ou transmissão
+ * não autorizada deste código e seus dados associados é estritamente proibida.
+*/
 
 // Dados dos arquétipos (sem alterações)
 const archetypes = {
