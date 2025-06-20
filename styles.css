@@ -640,11 +640,10 @@ body {
 */
 .golden-divider {
     border: none;
-    height: 2px;
-    width: 120px; /* Largura da barra */
-    margin: 1.5rem auto 2.5rem; /* Espaçamento vertical e centralização */
-    background: linear-gradient(90deg, transparent, #FFD700, transparent);
-    opacity: 0.8;
+    height: 1px; /* Uma linha mais fina e elegante */
+    width: 150px;
+    margin: 1.5rem auto 2.5rem;
+    background-color: #FFD700; /* Cor dourada sólida do projeto */
 }
 
 /* SUBSTITUA a regra .welcome-content h2 por esta: */
