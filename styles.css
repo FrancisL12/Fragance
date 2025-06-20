@@ -66,7 +66,7 @@ body {
     text-align: center;
     color: #cccccc;
     font-size: 1.3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .welcome-content {
@@ -642,7 +642,7 @@ body {
     border: none;
     height: 2px;
     width: 244px; /* Largura da barra */
-    margin: -1.5rem auto 2.5rem; /* Espaçamento vertical e centralização */
+    margin: 0.1rem auto 2.5rem; /* Espaçamento vertical e centralização */
     background: linear-gradient(90deg, transparent, #FFD700, transparent);
     opacity: 0.8;
 }
@@ -659,7 +659,7 @@ body {
 .welcome-content p {
     font-size: 0.8rem; /* <-- Fonte significativamente menor */
     color: #cccccc;
-    margin-bottom: 3rem;
+    margin-bottom: 1.8rem;
     line-height: 1.6;
     max-width: 350px; /* Garante que o texto não fique muito largo */
     margin-left: auto;
