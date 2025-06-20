@@ -605,3 +605,8 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
 }
+/* Estilo para o link do card de perfume */
+.perfume-card-link {
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: inherit; /* Faz o link herdar a cor do texto do card */
+}
