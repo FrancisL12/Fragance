@@ -619,3 +619,53 @@ body {
     max-width: 500px; /* Limita a largura dos botões */
     margin: 2rem auto 0;
 }
+/* ================================== */
+/* ESTILOS DO MODAL DE CORTE DE FOTO  */
+/* ================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #333;
+    text-align: center;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.modal-content h2 {
+    font-family: 'Playfair Display', serif;
+    color: #FFD700;
+    margin-bottom: 1.5rem;
+}
+
+.crop-container {
+    max-width: 400px;
+    height: 400px;
+    margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Deixa a área de corte circular */
+.cropper-view-box,
+.cropper-face {
+    border-radius: 50%;
+}
