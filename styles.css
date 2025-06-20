@@ -428,7 +428,7 @@ body {
 }
 
 .perfume-recommendations {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .perfume-recommendations h3 {
@@ -476,15 +476,28 @@ body {
 }
 
 .action-buttons {
-    margin-top: 3rem;
+    margin-top: 2rem; /* Espaçamento ajustado */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os botões */
+    gap: 2rem; /* Espaçamento entre o botão de compartilhar e a seção CTA */
 }
 
 .cta-section {
-    margin-top: 2rem;
+    width: 100%;
+    max-width: 600px; /* Limita a largura para melhor leitura */
     padding: 2rem;
     background: #1a1a1a;
     border-radius: 12px;
     border: 1px solid #333333;
+    text-align: center; /* Centraliza todo o texto e o botão interno */
+}
+
+.cta-section::before {
+    content: '🚨 ⚠'; /* Emojis de urgência adicionados */
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .cta-text {
