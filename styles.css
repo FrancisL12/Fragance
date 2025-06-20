@@ -404,7 +404,7 @@ body {
 
 .additional-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr; /* ALTERAÇÃO: Força uma única coluna */
     gap: 2rem;
     margin-bottom: 3rem;
 }
@@ -414,17 +414,30 @@ body {
     padding: 1.5rem;
     border-radius: 12px;
     border: 1px solid #333333;
+    text-align: center; /* ALTERAÇÃO: Centraliza o título principal */
 }
 
 .info-section h3 {
     color: #FFD700;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
+    margin-bottom: 1.5rem; /* ALTERAÇÃO: Aumenta margem do título */
+    font-size: 1.3rem; /* ALTERAÇÃO: Aumenta fonte do título */
 }
 
 .info-section p {
     color: #cccccc;
     line-height: 1.6;
+}
+
+/* Itens de Curiosidade */
+.curiosity-item {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.curiosity-item h4 {
+    color: #FFD700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
 }
 
 .perfume-recommendations {
