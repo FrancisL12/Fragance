@@ -682,3 +682,21 @@ body {
 .cropper-face {
     border-radius: 50%;
 }
+/* ESTILO PARA A FRASE DE ASSINATURA */
+.credits-footer {
+    color: #FFD700;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 3rem; /* Aumenta o espaço depois dos perfumes */
+    opacity: 0.8;
+}
+
+/* AJUSTE NO ESPAÇAMENTO DOS BOTÕES */
+.action-buttons {
+    margin-top: 2.5rem; /* Controla o espaço entre a área de resultado e os botões */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
