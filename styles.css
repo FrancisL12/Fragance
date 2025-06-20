@@ -379,10 +379,10 @@ body {
 }
 
 .archetype-description {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     line-height: 1.6;
     color: #cccccc;
-    max-width: 600px;
+    max-width: 350px;
     margin: 0 auto;
 }
 
