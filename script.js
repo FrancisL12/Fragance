@@ -53,39 +53,27 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 function initializeApp() {
     document.getElementById('start-btn').addEventListener('click', () => { playSound(clickSound); showScreen('identification'); updateProgress(10); });
     document.getElementById('user-form').addEventListener('submit', handleUserForm);
-    document.getElementById('user-photo').addEventListener('change', (e) => handlePhotoUpload(e, 'preview-img'));
+    document.getElementById('user-photo').addEventListener('change', (e) => handlePhotoUpload(e));
     document.querySelector('.photo-preview').addEventListener('click', () => document.getElementById('user-photo').click());
-    
-    // NOVO: Adiciona funcionalidade de clique para upload na tela de resultado
     document.getElementById('result-photo-container').addEventListener('click', () => document.getElementById('result-user-photo-input').click());
-    document.getElementById('result-user-photo-input').addEventListener('change', (e) => handlePhotoUpload(e, 'result-user-photo'));
-
+    document.getElementById('result-user-photo-input').addEventListener('change', (e) => handlePhotoUpload(e));
     loadPerfumeData();
 }
 
-// Função de upload de foto unificada
-function handlePhotoUpload(event, previewElementId) {
+function handlePhotoUpload(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            const preview = document.getElementById(previewElementId);
-            
-            // Atualiza a foto no estado da aplicação
             currentState.userProfile.photo = e.target.result;
-            
-            // Atualiza a imagem de preview na tela de identificação
             document.getElementById('preview-img').src = e.target.result;
             document.getElementById('preview-img').style.display = 'block';
             document.querySelector('.photo-placeholder').style.display = 'none';
-
-            // Atualiza a imagem na tela de resultados, se já estivermos nela
             document.getElementById('result-user-photo').src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
 }
-
 
 function handleUserForm(event) {
     event.preventDefault();
@@ -104,6 +92,9 @@ function startQuiz() {
     displayQuestion();
 }
 
+// ===============================================
+// FUNÇÃO displayQuestion CORRIGIDA
+// ===============================================
 function displayQuestion() {
     const question = questions[currentState.currentQuestion];
     const totalQuestions = questions.length;
@@ -114,14 +105,21 @@ function displayQuestion() {
     const optionsContainer = document.getElementById('question-options');
     optionsContainer.innerHTML = ''; 
 
+    // Cria um container novo para os botões para garantir o estilo correto
+    const optionsList = document.createElement('div');
+    optionsList.className = 'options-list-simple'; // Classe nova para o container
+
     question.options.forEach((option) => {
         const button = document.createElement('button');
         button.className = 'option-button-simple';
         button.textContent = option.text;
         button.addEventListener('click', () => selectAnswer(option));
-        optionsContainer.appendChild(button);
+        optionsList.appendChild(button);
     });
+    
+    optionsContainer.appendChild(optionsList);
 }
+// ===============================================
 
 function selectAnswer(option) {
     playSound(clickSound);
@@ -148,9 +146,9 @@ function showLoadingScreen() {
 }
 
 function calculateResults() {
-    console.log("Calculando resultados com os seguintes pontos:", currentState.scores); // Para depuração
+    console.log("Calculando resultados com os seguintes pontos:", currentState.scores);
     const userUniverse = currentState.userProfile.universe;
-    const availableArchetypes = archetypes[userUniverse] || archetypes.versatil;
+    const availableArchetypes = archetypes[userUniverse] || [];
 
     let bestMatch = null;
     let highestScore = -1;
@@ -165,20 +163,17 @@ function calculateResults() {
     });
 
     currentState.result = bestMatch || availableArchetypes[0];
-    console.log("Arquétipo com maior pontuação:", currentState.result); // Para depuração
-    
-    // Chama a função de exibição de resultados DEPOIS de calcular
+    console.log("Arquétipo com maior pontuação:", currentState.result);
     showResults();
 }
-
 
 function showResults() {
     const result = currentState.result;
     const userProfile = currentState.userProfile;
 
-    // Se o resultado ainda não foi calculado, não faz nada.
     if (!result) {
-        console.error("Tentou mostrar resultados antes de calcular.");
+        console.error("Resultado nulo. Não é possível exibir a tela de resultados.");
+        // Opcional: Mostrar uma tela de erro para o usuário
         return;
     }
     
@@ -189,7 +184,6 @@ function showResults() {
     if (userProfile.photo) {
         photoElement.src = userProfile.photo;
     } else {
-        // Se não tem foto, mostra um placeholder para incentivar o upload
         photoElement.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3C/svg%3E";
     }
 
@@ -202,7 +196,6 @@ function showResults() {
     displayPerfumeRecommendations();
     document.getElementById('share-btn').addEventListener('click', shareResult);
 }
-
 
 async function loadPerfumeData() {
     try {
@@ -227,9 +220,9 @@ function displayPerfumeRecommendations() {
 
     let filteredPerfumes = sourceList.filter(perfume => {
         const perfumeGender = (perfume['Gênero'] || '').toLowerCase();
-        if (userUniverse === 'masculino') return (perfumeGender === 'homens' || perfumeGender === 'versátil');
-        if (userUniverse === 'feminino') return (perfumeGender === 'mulheres' || perfumeGender === 'versátil');
-        if (userUniverse === 'versatil') return perfumeGender === 'versátil';
+        if (userUniverse === 'masculino' && (perfumeGender === 'homens' || perfumeGender === 'versátil')) return true;
+        if (userUniverse === 'feminino' && (perfumeGender === 'mulheres' || perfumeGender === 'versátil')) return true;
+        if (userUniverse === 'versatil' && perfumeGender === 'versátil') return true;
         return false;
     });
 
