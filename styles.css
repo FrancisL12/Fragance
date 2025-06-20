@@ -404,7 +404,7 @@ body {
 
 .additional-info {
     display: grid;
-    grid-template-columns: 1fr; /* ALTERAÇÃO: Força uma única coluna */
+    grid-template-columns: 1fr;
     gap: 2rem;
     margin-bottom: 3rem;
 }
@@ -414,13 +414,14 @@ body {
     padding: 1.5rem;
     border-radius: 12px;
     border: 1px solid #333333;
-    text-align: center; /* ALTERAÇÃO: Centraliza o título principal */
+    text-align: center;
 }
 
-.info-section h3 {
+/* CORREÇÃO: Alinhamento centralizado para o título principal do bloco */
+.info-section .curiosity-title {
     color: #FFD700;
-    margin-bottom: 1.5rem; /* ALTERAÇÃO: Aumenta margem do título */
-    font-size: 1.3rem; /* ALTERAÇÃO: Aumenta fonte do título */
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .info-section p {
@@ -430,7 +431,7 @@ body {
 
 /* Itens de Curiosidade */
 .curiosity-item {
-    text-align: left;
+    text-align: center; /* CORREÇÃO: Alinhamento centralizado */
     margin-bottom: 1rem;
 }
 
@@ -489,25 +490,25 @@ body {
 }
 
 .action-buttons {
-    margin-top: 2rem; /* Espaçamento ajustado */
+    margin-top: 2rem; 
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza os botões */
-    gap: 2rem; /* Espaçamento entre o botão de compartilhar e a seção CTA */
+    align-items: center; 
+    gap: 2rem; 
 }
 
 .cta-section {
     width: 100%;
-    max-width: 600px; /* Limita a largura para melhor leitura */
+    max-width: 600px; 
     padding: 2rem;
     background: #1a1a1a;
     border-radius: 12px;
     border: 1px solid #333333;
-    text-align: center; /* Centraliza todo o texto e o botão interno */
+    text-align: center; 
 }
 
 .cta-section::before {
-    content: '🚨'; /* Emojis de urgência adicionados */
+    content: '🚨'; 
     display: block;
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -701,14 +702,14 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     text-align: center;
-    margin-top: 2rem; /* Espaço reduzido depois dos perfumes */
-    margin-bottom: 2rem; /* Adiciona um espaço antes do botão de compartilhar */
+    margin-top: 2rem; 
+    margin-bottom: 2rem; 
     opacity: 0.8;
 }
 
 /* AJUSTE NO ESPAÇAMENTO DOS BOTÕES */
 .action-buttons {
-    margin-top: 2.5rem; /* Controla o espaço entre a área de resultado e os botões */
+    margin-top: 2.5rem; 
     display: flex;
     flex-direction: column;
     align-items: center;
