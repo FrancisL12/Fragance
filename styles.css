@@ -634,3 +634,59 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #FFA500;
 }
+/*
+  Adicione esta nova regra para a barra dourada.
+  Pode colocar perto dos estilos da Welcome Screen.
+*/
+.golden-divider {
+    border: none;
+    height: 2px;
+    width: 120px; /* Largura da barra */
+    margin: 1.5rem auto 2.5rem; /* Espaçamento vertical e centralização */
+    background: linear-gradient(90deg, transparent, #FFD700, transparent);
+    opacity: 0.8;
+}
+
+
+/* MODIFIQUE a regra existente para .welcome-content h2
+  (Diminuindo a fonte de 2.5rem para 2rem)
+*/
+.welcome-content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;  /*<-- VALOR ALTERADO*/
+    margin-bottom: 0.8rem; /*<-- VALOR AJUSTADO*/
+    color: #FFD700;
+}
+
+/* MODIFIQUE a regra existente para .welcome-content p
+  (Diminuindo a fonte de 1.2rem para 1rem)
+*/
+.welcome-content p {
+    font-size: 1rem; /*<-- VALOR ALTERADO*/
+    color: #cccccc;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+/*
+  MODIFIQUE a regra .btn-primary para ter um estilo base
+  e adicione uma regra específica para o #start-btn para o tamanho.
+*/
+.btn-primary, .btn-secondary, .btn-whatsapp {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Adicione esta nova regra para aumentar o botão específico */
+#start-btn {
+    padding: 18px 45px; /* Deixa o botão maior e mais largo */
+    font-size: 1.2rem; /* Aumenta a fonte do botão */
+}
