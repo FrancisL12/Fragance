@@ -1,5 +1,4 @@
-# Criando o arquivo JavaScript corrigido
-js_content = '''// Dados dos arquétipos
+// Dados dos arquétipos
 const archetypes = {
     masculino: [
         {
@@ -361,102 +360,36 @@ let currentState = {
         universe: '',
         origin: ''
     },
-    scores: {},
-    result: null
+    scores: {}
 };
 
-// Variáveis globais
-let perfumeData = [];
+// Elementos DOM
+const screens = {
+    welcome: document.getElementById('welcome-screen'),
+    identification: document.getElementById('identification-screen'),
+    quiz: document.getElementById('quiz-screen'),
+    loading: document.getElementById('loading-screen'),
+    results: document.getElementById('results-screen')
+};
 
-// Inicialização quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Script carregado e DOM pronto!');
-    initializeApp();
-});
+// Sons
+const clickSound = document.getElementById('click-sound');
+const successSound = document.getElementById('success-sound');
 
-function initializeApp() {
-    console.log('Inicializando aplicação...');
-    
-    // Verificar se os elementos existem
-    const startBtn = document.getElementById('start-btn');
-    if (!startBtn) {
-        console.error('Botão start-btn não encontrado!');
-        return;
-    }
-    
-    // Event listeners
-    startBtn.addEventListener('click', function() {
-        console.log('Botão "Vamos lá!" clicado!');
-        playClickSound();
-        showScreen('identification');
-        updateProgress(10);
-    });
-
-    // Form de identificação
-    const userForm = document.getElementById('user-form');
-    if (userForm) {
-        userForm.addEventListener('submit', handleUserForm);
-    }
-    
-    // Upload de foto
-    const photoInput = document.getElementById('user-photo');
-    const photoPreview = document.querySelector('.photo-preview');
-    
-    if (photoInput) {
-        photoInput.addEventListener('change', handlePhotoUpload);
-    }
-    
-    if (photoPreview) {
-        photoPreview.addEventListener('click', function() {
-            if (photoInput) photoInput.click();
-        });
-    }
-
-    // Carregar dados de perfumes
-    loadPerfumeData();
-    
-    console.log('Aplicação inicializada com sucesso!');
-}
-
-function playClickSound() {
+// Funções de utilidade
+function playSound(sound) {
     try {
-        const clickSound = document.getElementById('click-sound');
-        if (clickSound) {
-            clickSound.currentTime = 0;
-            clickSound.play().catch(e => console.log('Audio play failed:', e));
-        }
-    } catch (e) {
-        console.log('Audio error:', e);
-    }
-}
-
-function playSuccessSound() {
-    try {
-        const successSound = document.getElementById('success-sound');
-        if (successSound) {
-            successSound.currentTime = 0;
-            successSound.play().catch(e => console.log('Audio play failed:', e));
-        }
+        sound.currentTime = 0;
+        sound.play().catch(e => console.log('Audio play failed:', e));
     } catch (e) {
         console.log('Audio error:', e);
     }
 }
 
 function showScreen(screenName) {
-    console.log('Mudando para tela:', screenName);
-    
-    // Esconder todas as telas
-    const screens = document.querySelectorAll('.screen');
-    screens.forEach(screen => screen.classList.remove('active'));
-    
-    // Mostrar tela específica
-    const targetScreen = document.getElementById(screenName + '-screen');
-    if (targetScreen) {
-        targetScreen.classList.add('active');
-        currentState.screen = screenName;
-    } else {
-        console.error('Tela não encontrada:', screenName);
-    }
+    Object.values(screens).forEach(screen => screen.classList.remove('active'));
+    screens[screenName].classList.add('active');
+    currentState.screen = screenName;
 }
 
 function updateProgress(percentage) {
@@ -466,6 +399,32 @@ function updateProgress(percentage) {
     }
 }
 
+// Inicialização
+document.addEventListener('DOMContentLoaded', function() {
+    initializeApp();
+});
+
+function initializeApp() {
+    // Botão inicial
+    document.getElementById('start-btn').addEventListener('click', function() {
+        playSound(clickSound);
+        showScreen('identification');
+        updateProgress(10);
+    });
+
+    // Form de identificação
+    document.getElementById('user-form').addEventListener('submit', handleUserForm);
+
+    // Upload de foto
+    document.getElementById('user-photo').addEventListener('change', handlePhotoUpload);
+    document.querySelector('.photo-preview').addEventListener('click', function() {
+        document.getElementById('user-photo').click();
+    });
+
+    // Carregar dados de perfumes
+    loadPerfumeData();
+}
+
 function handlePhotoUpload(event) {
     const file = event.target.files[0];
     if (file) {
@@ -473,14 +432,12 @@ function handlePhotoUpload(event) {
         reader.onload = function(e) {
             const preview = document.getElementById('preview-img');
             const placeholder = document.querySelector('.photo-placeholder');
-            
-            if (preview && placeholder) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-                placeholder.style.display = 'none';
-                
-                currentState.userProfile.photo = e.target.result;
-            }
+
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            placeholder.style.display = 'none';
+
+            currentState.userProfile.photo = e.target.result;
         };
         reader.readAsDataURL(file);
     }
@@ -488,73 +445,61 @@ function handlePhotoUpload(event) {
 
 function handleUserForm(event) {
     event.preventDefault();
-    console.log('Formulário enviado!');
-    
+
     const formData = new FormData(event.target);
     currentState.userProfile.name = formData.get('user-name');
     currentState.userProfile.universe = formData.get('universe');
     currentState.userProfile.origin = formData.get('origin');
-    
-    console.log('Perfil do usuário:', currentState.userProfile);
-    
-    playSuccessSound();
+
+    playSound(successSound);
     startQuiz();
 }
 
 function startQuiz() {
-    console.log('Iniciando quiz...');
     showScreen('quiz');
     currentState.currentQuestion = 0;
     currentState.scores = {};
-    currentState.userAnswers = [];
     displayQuestion();
 }
 
 function displayQuestion() {
     const question = questions[currentState.currentQuestion];
     const progress = ((currentState.currentQuestion + 1) / questions.length) * 80 + 10; // 10-90%
-    
+
     updateProgress(progress);
-    
-    const questionTitle = document.getElementById('question-title');
+
+    document.getElementById('question-title').textContent = question.title;
+
     const optionsContainer = document.getElementById('question-options');
-    
-    if (questionTitle) {
-        questionTitle.textContent = question.title;
-    }
-    
-    if (optionsContainer) {
-        optionsContainer.innerHTML = '';
-        
-        question.options.forEach((option, index) => {
-            const button = document.createElement('button');
-            button.className = 'option-button';
-            button.innerHTML = `
-                <img src="${option.image}" alt="${option.text}" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjMzMzMzMzIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiBmaWxsPSIjNjY2NjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiPkltYWdlbTwvdGV4dD4KPC9zdmc+'">
-                <div class="option-text">${option.text}</div>
-            `;
-            
-            button.addEventListener('click', () => selectAnswer(option, index));
-            optionsContainer.appendChild(button);
-        });
-    }
+    optionsContainer.innerHTML = '';
+
+    question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.className = 'option-button';
+        button.innerHTML = `
+            <img src="${option.image}" alt="${option.text}" loading="lazy">
+            <div class="option-text">${option.text}</div>
+        `;
+
+        button.addEventListener('click', () => selectAnswer(option, index));
+        optionsContainer.appendChild(button);
+    });
 }
 
 function selectAnswer(option, index) {
-    console.log('Resposta selecionada:', option.text);
-    playClickSound();
-    
+    playSound(clickSound);
+
     // Adicionar pontos às tags
     Object.entries(option.tags).forEach(([tag, points]) => {
         currentState.scores[tag] = (currentState.scores[tag] || 0) + points;
     });
-    
+
     currentState.userAnswers.push({
         questionId: questions[currentState.currentQuestion].id,
         selectedOption: index,
         tags: option.tags
     });
-    
+
     // Próxima pergunta ou resultados
     setTimeout(() => {
         if (currentState.currentQuestion < questions.length - 1) {
@@ -567,10 +512,9 @@ function selectAnswer(option, index) {
 }
 
 function showLoadingScreen() {
-    console.log('Mostrando tela de carregamento...');
     showScreen('loading');
     updateProgress(95);
-    
+
     // Simular processamento
     setTimeout(() => {
         calculateResults();
@@ -579,83 +523,63 @@ function showLoadingScreen() {
 }
 
 function calculateResults() {
-    console.log('Calculando resultados...');
-    console.log('Pontuações:', currentState.scores);
-    
     const userUniverse = currentState.userProfile.universe;
     const availableArchetypes = archetypes[userUniverse] || archetypes.versatil;
-    
+
     let bestMatch = null;
     let highestScore = 0;
-    
+
     availableArchetypes.forEach(archetype => {
         let score = 0;
         archetype.tags.forEach(tag => {
             score += currentState.scores[tag] || 0;
         });
-        
-        console.log(`Arquétipo ${archetype.name}: ${score} pontos`);
-        
+
         if (score > highestScore) {
             highestScore = score;
             bestMatch = archetype;
         }
     });
-    
+
     currentState.result = bestMatch || availableArchetypes[0];
-    console.log('Resultado final:', currentState.result.name);
 }
 
 function showResults() {
-    console.log('Mostrando resultados...');
     showScreen('results');
     updateProgress(100);
-    
+
     const result = currentState.result;
     const userProfile = currentState.userProfile;
-    
+
     // Foto do usuário
-    const userPhoto = document.getElementById('result-user-photo');
-    if (userPhoto && userProfile.photo) {
-        userPhoto.src = userProfile.photo;
+    if (userProfile.photo) {
+        document.getElementById('result-user-photo').src = userProfile.photo;
     }
-    
+
     // Nome do usuário
-    const userName = document.getElementById('result-user-name');
-    if (userName) {
-        userName.textContent = userProfile.name.toUpperCase();
-    }
-    
+    document.getElementById('result-user-name').textContent = userProfile.name.toUpperCase();
+
     // Informações do arquétipo
-    const archetypeImg = document.getElementById('archetype-img');
-    const archetypeName = document.getElementById('archetype-name');
-    const archetypeDescription = document.getElementById('archetype-description');
-    const famousPeople = document.getElementById('famous-people');
-    const idealOccasions = document.getElementById('ideal-occasions');
-    
-    if (archetypeImg) archetypeImg.src = result.image;
-    if (archetypeName) archetypeName.textContent = result.name;
-    if (archetypeDescription) archetypeDescription.textContent = result.description;
-    if (famousPeople) famousPeople.textContent = result.famous;
-    if (idealOccasions) idealOccasions.textContent = result.occasions;
-    
+    document.getElementById('archetype-img').src = result.image;
+    document.getElementById('archetype-name').textContent = result.name;
+    document.getElementById('archetype-description').textContent = result.description;
+    document.getElementById('famous-people').textContent = result.famous;
+    document.getElementById('ideal-occasions').textContent = result.occasions;
+
     // Recomendações de perfumes
     displayPerfumeRecommendations();
-    
+
     // Botão de compartilhar
-    const shareBtn = document.getElementById('share-btn');
-    if (shareBtn) {
-        shareBtn.addEventListener('click', shareResult);
-    }
+    document.getElementById('share-btn').addEventListener('click', shareResult);
 }
+
+let perfumeData = [];
 
 async function loadPerfumeData() {
     try {
-        console.log('Carregando dados dos perfumes...');
         const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTVo5-wbqe0_hjaervqTvaYNnKJ4J4C9IRMGOt-kn8ST6XO41Sn7_hd181oL1vvIbQHJU88FEVnxHD_/pub?output=csv');
         const csvText = await response.text();
         perfumeData = parseCSV(csvText);
-        console.log('Dados dos perfumes carregados:', perfumeData.length, 'perfumes');
     } catch (error) {
         console.error('Erro ao carregar dados dos perfumes:', error);
         // Dados de exemplo caso falhe
@@ -668,34 +592,16 @@ async function loadPerfumeData() {
                 "Acorde Principal 1": "Amadeirado",
                 "Acorde Principal 2": "Cítrico",
                 "Acorde Principal 3": "Aromático"
-            },
-            {
-                "Perfume": "Sauvage",
-                "Marca": "Dior",
-                "País de Origem": "França",
-                "Gênero": "Masculino",
-                "Acorde Principal 1": "Aromático",
-                "Acorde Principal 2": "Especiado",
-                "Acorde Principal 3": "Fresco"
-            },
-            {
-                "Perfume": "Chanel No. 5",
-                "Marca": "Chanel",
-                "País de Origem": "França",
-                "Gênero": "Feminino",
-                "Acorde Principal 1": "Floral Aldeídico",
-                "Acorde Principal 2": "Atalcado",
-                "Acorde Principal 3": "Elegante"
             }
         ];
     }
 }
 
 function parseCSV(csvText) {
-    const lines = csvText.split('\\n');
+    const lines = csvText.split('\n');
     const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
     const data = [];
-    
+
     for (let i = 1; i < lines.length; i++) {
         if (lines[i].trim()) {
             const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
@@ -706,30 +612,28 @@ function parseCSV(csvText) {
             data.push(row);
         }
     }
-    
+
     return data;
 }
 
 function displayPerfumeRecommendations() {
-    console.log('Exibindo recomendações de perfumes...');
-    
     const result = currentState.result;
     const userOrigin = currentState.userProfile.origin;
     const userUniverse = currentState.userProfile.universe;
-    
+
     // Filtrar perfumes
     let filteredPerfumes = perfumeData.filter(perfume => {
         // Filtro por origem
         if (userOrigin === 'importados' && perfume['País de Origem'] === 'Brasil') return false;
         if (userOrigin === 'nacionais' && perfume['País de Origem'] !== 'Brasil') return false;
-        
+
         // Filtro por gênero
         if (userUniverse === 'masculino' && perfume['Gênero'] !== 'Masculino') return false;
         if (userUniverse === 'feminino' && perfume['Gênero'] !== 'Feminino') return false;
-        
+
         return true;
     });
-    
+
     // Calcular match score
     filteredPerfumes = filteredPerfumes.map(perfume => {
         let matchScore = 0;
@@ -740,23 +644,21 @@ function displayPerfumeRecommendations() {
         });
         return { ...perfume, matchScore };
     });
-    
+
     // Ordenar por match score e pegar os top 5
     const recommendations = filteredPerfumes
         .sort((a, b) => b.matchScore - a.matchScore)
         .slice(0, 5);
-    
+
     // Exibir recomendações
     const container = document.getElementById('recommended-perfumes');
-    if (!container) return;
-    
     container.innerHTML = '';
-    
+
     if (recommendations.length === 0) {
-        container.innerHTML = '<p>Carregando recomendações personalizadas...</p>';
+        container.innerHTML = '<p>Nenhuma recomendação encontrada para este perfil. Estamos atualizando nossa base de dados!</p>';
         return;
     }
-    
+
     recommendations.forEach(perfume => {
         const card = document.createElement('div');
         card.className = 'perfume-card';
@@ -769,63 +671,45 @@ function displayPerfumeRecommendations() {
         `;
         container.appendChild(card);
     });
-    
-    console.log('Recomendações exibidas:', recommendations.length);
 }
 
 function shareResult() {
-    console.log('Compartilhando resultado...');
-    
     const resultContent = document.getElementById('result-content');
-    if (!resultContent) {
-        console.error('Elemento result-content não encontrado');
-        return;
-    }
-    
-    // Verificar se html2canvas está disponível
-    if (typeof html2canvas === 'undefined') {
-        console.error('html2canvas não está carregado');
-        alert('Erro ao gerar imagem. Biblioteca não carregada.');
-        return;
-    }
-    
+
     html2canvas(resultContent, {
         backgroundColor: '#000000',
         scale: 2,
-        useCORS: true,
-        allowTaint: true
+        useCORS: true
     }).then(canvas => {
         // Criar link de download
         const link = document.createElement('a');
-        link.download = `meu-perfil-olfativo-${currentState.userProfile.name.toLowerCase().replace(/\\s+/g, '-')}.png`;
+        link.download = `meu-perfil-olfativo-${currentState.userProfile.name.toLowerCase().replace(/\s+/g, '-')}.png`;
         link.href = canvas.toDataURL();
-        
+
         // Trigger download
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        
-        playSuccessSound();
-        
+
+        playSound(successSound);
+
         // Mostrar mensagem de sucesso
         const button = document.getElementById('share-btn');
-        if (button) {
-            const originalText = button.textContent;
-            button.textContent = '✅ Imagem salva!';
-            button.style.background = '#25D366';
-            
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = '';
-            }, 3000);
-        }
+        const originalText = button.textContent;
+        button.textContent = '✅ Imagem salva!';
+        button.style.background = '#25D366';
+
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.background = '';
+        }, 3000);
     }).catch(error => {
         console.error('Erro ao gerar imagem:', error);
         alert('Erro ao gerar imagem. Tente novamente.');
     });
 }
 
-// Frases motivacionais para o áudio
+// Frases motivacionais para o áudio (simulação)
 const motivationalPhrases = [
     "Ótima escolha!",
     "Você tem bom gosto!",
@@ -839,39 +723,20 @@ const motivationalPhrases = [
 function playMotivationalAudio() {
     const phrase = motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)];
     console.log(`🔊 ${phrase}`);
-    
-    // Web Speech API para falar a frase
+
+    // Aqui você poderia usar Web Speech API para falar a frase
     if ('speechSynthesis' in window) {
-        try {
-            const utterance = new SpeechSynthesisUtterance(phrase);
-            utterance.lang = 'pt-BR';
-            utterance.rate = 1.2;
-            utterance.pitch = 1.1;
-            utterance.volume = 0.7;
-            speechSynthesis.speak(utterance);
-        } catch (e) {
-            console.log('Speech synthesis error:', e);
-        }
+        const utterance = new SpeechSynthesisUtterance(phrase);
+        utterance.lang = 'pt-BR';
+        utterance.rate = 1.2;
+        utterance.pitch = 1.1;
+        speechSynthesis.speak(utterance);
     }
 }
 
-// Adicionar áudio motivacional aos cliques nas opções
+// Adicionar áudio motivacional aos cliques
 document.addEventListener('click', function(e) {
-    if (e.target.closest('.option-button')) {
+    if (e.target.classList.contains('option-button')) {
         setTimeout(playMotivationalAudio, 200);
     }
 });
-
-console.log('Script carregado completamente!');'''
-
-with open('script.js', 'w', encoding='utf-8') as f:
-    f.write(js_content)
-
-print("Arquivo script.js corrigido criado com sucesso!")
-print("\\nPrincipais correções feitas:")
-print("- Verificação se elementos DOM existem antes de usar")
-print("- Logs de debug para identificar problemas")
-print("- Tratamento de erros melhorado")
-print("- Inicialização mais robusta")
-print("- Fallback para imagens que não carregam")
-print("- Verificação da biblioteca html2canvas")
