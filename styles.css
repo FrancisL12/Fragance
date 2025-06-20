@@ -406,7 +406,7 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; /* CORREÇÃO: Margem inferior reduzida */
 }
 
 .info-section {
@@ -491,9 +491,8 @@ body {
     line-height: 1.4;
 }
 
-/* CORREÇÃO: Espaçamento dos botões ajustado */
 .action-buttons {
-    margin-top: 3rem; 
+    margin-top: 1.5rem;  /* CORREÇÃO: Margem superior reduzida */
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -701,7 +700,6 @@ body {
 }
 
 /* ESTILO PARA A FRASE DE ASSINATURA */
-/* CORREÇÃO: Margens ajustadas para o rodapé */
 .credits-footer {
     color: #FFD700;
     font-family: 'Playfair Display', serif;
