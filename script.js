@@ -311,44 +311,56 @@ function displayPerfumeRecommendations() {
 
 function shareResult() {
     const resultContent = document.getElementById('result-content');
-    const width = resultContent.offsetWidth;
-    const height = resultContent.offsetHeight;
-    const aspectRatio = 9 / 16;
 
-    let targetWidth = width;
-    let targetHeight = Math.round(targetWidth / aspectRatio);
-
-    // Se a altura calculada for menor que a altura original, usamos a altura original
-    if (targetHeight < height) {
-        targetHeight = height;
-        targetWidth = Math.round(targetHeight * aspectRatio);
-    }
-
-    html2canvas(resultContent, {
-        backgroundColor: '#000000',
-        scale: 2,
+    // Opções para garantir a captura de todo o conteúdo, independentemente da rolagem
+    const options = {
+        backgroundColor: '#1a1a1a', // Cor de fundo para a captura inicial
+        scale: 2, // Aumenta a resolução da captura
         useCORS: true,
-        width: targetWidth,
-        height: targetHeight,
-        x: (width - targetWidth) / 2, // Centralizar se a largura for menor
-        y: 0
-    }).then(canvas => {
+        scrollX: 0,
+        scrollY: -window.scrollY // Garante que a captura comece do topo do elemento
+    };
+
+    html2canvas(resultContent, options).then(capturedCanvas => {
+        // 1. Define o tamanho final do story (9:16)
+        const finalWidth = 1080;
+        const finalHeight = 1920;
+
+        // 2. Cria o canvas final com o fundo escuro
         const finalCanvas = document.createElement('canvas');
-        const finalCtx = finalCanvas.getContext('2d');
-        const padding = 20; // Tamanho da borda
+        finalCanvas.width = finalWidth;
+        finalCanvas.height = finalHeight;
+        const ctx = finalCanvas.getContext('2d');
+        ctx.fillStyle = '#1a1a1a'; // Cor de fundo do story
+        ctx.fillRect(0, 0, finalWidth, finalHeight);
 
-        finalCanvas.width = targetWidth + 2 * padding;
-        finalCanvas.height = targetHeight + 2 * padding;
-        finalCtx.fillStyle = '#1a1a1a'; // Cor do fundo com a borda
-        finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
-        finalCtx.drawImage(canvas, padding, padding);
+        // 3. Calcula as dimensões para encaixar a imagem capturada no story, mantendo a proporção
+        const aspectRatio = capturedCanvas.width / capturedCanvas.height;
+        let drawWidth = finalWidth - 80; // Deixa uma borda de 40px de cada lado
+        let drawHeight = drawWidth / aspectRatio;
 
+        // Se a altura ainda for muito grande, recalculamos com base na altura
+        if (drawHeight > finalHeight - 80) {
+            drawHeight = finalHeight - 80;
+            drawWidth = drawHeight * aspectRatio;
+        }
+
+        // 4. Calcula a posição para centralizar a imagem no meio do story
+        const x = (finalWidth - drawWidth) / 2;
+        const y = (finalHeight - drawHeight) / 2;
+
+        // 5. Desenha a imagem capturada no canvas final
+        ctx.drawImage(capturedCanvas, x, y, drawWidth, drawHeight);
+
+        // 6. Gera o link e inicia o download
         const link = document.createElement('a');
         link.download = `meu-perfil-olfativo-${(currentState.userProfile.name || 'perfil').toLowerCase().replace(/\s+/g, '-')}.png`;
-        link.href = finalCanvas.toDataURL();
+        link.href = finalCanvas.toDataURL('image/png');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        // Feedback visual para o usuário
         playSound(successSound);
         const button = document.getElementById('share-btn');
         const originalText = button.textContent;
@@ -358,27 +370,9 @@ function shareResult() {
             button.textContent = originalText;
             button.style.background = '';
         }, 3000);
+
     }).catch(error => {
         console.error('Erro ao gerar imagem:', error);
         alert('Erro ao gerar imagem. Tente novamente.');
     });
 }
-
-const motivationalPhrases = [ "Ótima escolha!", "Você tem bom gosto!", "Perfeito!", "Excelente!", "Muito bem!", "Isso aí!" ];
-
-function playMotivationalAudio() {
-    const phrase = motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)];
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(phrase);
-        utterance.lang = 'pt-BR';
-        utterance.rate = 1.2;
-        utterance.pitch = 1.1;
-        speechSynthesis.speak(utterance);
-    }
-}
-
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('option-button-simple')) {
-        setTimeout(playMotivationalAudio, 200);
-    }
-});
