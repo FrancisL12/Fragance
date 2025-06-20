@@ -584,3 +584,24 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #FFA500;
 }
+/* Estilo para os novos botões simples do quiz */
+.option-button-simple {
+    background-color: transparent;
+    border: 2px solid #FFD700;
+    color: #FFD700;
+    padding: 16px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.option-button-simple:hover {
+    background-color: #FFD700;
+    color: #000000;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+}
