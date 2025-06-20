@@ -53,12 +53,26 @@ const successSound = document.getElementById('success-sound');
 
 function playSound(sound) { try { sound.currentTime = 0; sound.play().catch(e => console.log('Audio play failed:', e)); } catch (e) { console.log('Audio error:', e); } }
 function showScreen(screenName) { Object.values(screens).forEach(screen => screen.classList.remove('active')); screens[screenName].classList.add('active'); currentState.screen = screenName; }
-function updateProgress(percentage) { const progressBar = document.querySelector('.progress'); if (progressBar) { progressBar.style.width = percentage + '%'; } }
+
+// CORREÇÃO: Função updateProgress ajustada para ser mais inteligente
+function updateProgress(percentage) {
+    const activeScreen = document.querySelector('.screen.active');
+    if (!activeScreen) return; // Sai da função se nenhuma tela estiver ativa
+
+    const progressBar = activeScreen.querySelector('.progress');
+    if (progressBar) {
+        progressBar.style.width = percentage + '%';
+    }
+}
 
 document.addEventListener('DOMContentLoaded', initializeApp);
 
 function initializeApp() {
-    document.getElementById('start-btn').addEventListener('click', () => { playSound(clickSound); showScreen('identification'); updateProgress(10); });
+    document.getElementById('start-btn').addEventListener('click', () => { 
+        playSound(clickSound); 
+        showScreen('identification'); 
+        updateProgress(10); 
+    });
     document.getElementById('user-form').addEventListener('submit', handleUserForm);
     
     // Configuração dos uploads de foto para abrir o modal
@@ -151,7 +165,14 @@ function startQuiz() {
 function displayQuestion() {
     const question = questions[currentState.currentQuestion];
     const totalQuestions = questions.length;
-    const progress = ((currentState.currentQuestion + 1) / totalQuestions) * 80 + 10;
+    // Lógica de cálculo do progresso
+    // Tela de identificação = 1 passo. 3 perguntas do quiz = 3 passos. Total = 4 passos.
+    // Passo 1 (Identificação) já foi (10%). Faltam 3 passos (perguntas).
+    // O progresso vai de 10% a 90% durante o quiz.
+    // currentQuestion é 0, 1, 2.
+    // (0+1) / 3 = 0.33 | (1+1)/3 = 0.66 | (2+1)/3 = 1
+    const quizProgress = ((currentState.currentQuestion + 1) / totalQuestions) * 80; // Proporção de 80% para o quiz
+    const progress = 10 + quizProgress; // Começa de 10% e vai até 90%
     updateProgress(progress);
 
     document.getElementById('question-title').textContent = question.title;
@@ -190,10 +211,7 @@ function selectAnswer(option) {
 
 function showLoadingScreen() {
     showScreen('loading');
-    updateProgress(95);
-    setTimeout(() => {
-        calculateResults();
-    }, 3000);
+    // A tela de loading não precisa atualizar a barra, manterá o progresso da última pergunta.
 }
 
 function calculateResults() {
@@ -223,7 +241,7 @@ function showResults() {
     if (!result) return;
     
     showScreen('results');
-    updateProgress(100);
+    // Não há barra de progresso na tela de resultados
 
     const photoElement = document.getElementById('result-user-photo');
     if (userProfile.photo) {
@@ -232,7 +250,6 @@ function showResults() {
         photoElement.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3C/svg%3E";
     }
 
-    // CORREÇÃO: Restaurada a lógica original com fallback para evitar erro de 'null'
     document.getElementById('result-user-name').textContent = (userProfile.name || 'Viajante Olfativo').toUpperCase();
 
     document.getElementById('archetype-name').textContent = result.name;
