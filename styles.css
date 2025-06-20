@@ -65,7 +65,7 @@ body {
 .logo .subtitle {
     text-align: center;
     color: #cccccc;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     margin-bottom: 3rem;
 }
 
@@ -550,7 +550,7 @@ body {
 
 @media (max-width: 480px) {
     .logo h1 {
-        font-size: 2rem;
+        font-size: 3rem;
     }
 
     .welcome-content h2 {
@@ -650,14 +650,14 @@ body {
 /* SUBSTITUA a regra .welcome-content h2 por esta: */
 .welcome-content h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;  /* <-- Fonte significativamente menor */
+    font-size: 1.1rem;  /* <-- Fonte significativamente menor */
     margin-bottom: 1rem;
     color: #FFD700;
 }
 
 /* SUBSTITUA a regra .welcome-content p por esta: */
 .welcome-content p {
-    font-size: 0.9rem; /* <-- Fonte significativamente menor */
+    font-size: 0.8rem; /* <-- Fonte significativamente menor */
     color: #cccccc;
     margin-bottom: 3rem;
     line-height: 1.6;
