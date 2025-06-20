@@ -232,7 +232,9 @@ function showResults() {
         photoElement.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3C/svg%3E";
     }
 
-    document.getElementById('result-user-name').textContent = (userProfile.name || 'Viajante Olfativo').toUpperCase();
+    // ALTERAÇÃO AQUI: Remove o fallback "Viajante Olfativo" para sempre mostrar o nome do usuário
+    document.getElementById('result-user-name').textContent = userProfile.name.toUpperCase();
+
     document.getElementById('archetype-name').textContent = result.name;
     document.getElementById('archetype-description').textContent = result.description;
     document.getElementById('famous-people').textContent = result.famous;
