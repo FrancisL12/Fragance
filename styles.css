@@ -345,7 +345,7 @@ body {
 }
 
 .user-info {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .user-photo-circle {
@@ -480,7 +480,7 @@ body {
 }
 
 .action-buttons {
-    margin-top: 1.5rem;
+    margin-top: 1.0rem;
     display: flex;
     flex-direction: column;
     align-items: center; 
