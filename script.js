@@ -554,6 +554,9 @@ function showResults() {
     // Foto do usuário
     if (userProfile.photo) {
         document.getElementById('result-user-photo').src = userProfile.photo;
+    } else {
+        // Opcional: esconder o círculo da foto se não houver imagem
+        document.getElementById('result-user-photo').parentElement.style.display = 'none';
     }
 
     // Nome do usuário
