@@ -10,7 +10,6 @@
 </head>
 <body>
     <div id="app">
-        <!-- Tela Inicial -->
         <div id="welcome-screen" class="screen active">
             <div class="container">
                 <div class="logo">
@@ -25,7 +24,6 @@
             </div>
         </div>
 
-        <!-- Tela de Identificação -->
         <div id="identification-screen" class="screen">
             <div class="container">
                 <div class="progress-bar">
@@ -39,7 +37,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="user-photo">Sua foto:</label>
+                        <label for="user-photo">Sua foto (opcional):</label>
                         <div class="photo-upload">
                             <input type="file" id="user-photo" accept="image/*">
                             <div class="photo-preview">
@@ -91,7 +89,6 @@
             </div>
         </div>
 
-        <!-- Telas do Quiz -->
         <div id="quiz-screen" class="screen">
             <div class="container">
                 <div class="progress-bar">
@@ -99,12 +96,11 @@
                 </div>
                 <div class="quiz-content">
                     <h2 id="question-title"></h2>
-                    <div id="question-options" class="options-grid"></div>
+                    <div id="question-options"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Tela de Carregamento -->
         <div id="loading-screen" class="screen">
             <div class="container">
                 <div class="loading-animation">
@@ -121,21 +117,16 @@
             </div>
         </div>
 
-        <!-- Tela de Resultados -->
         <div id="results-screen" class="screen">
             <div class="container">
                 <div id="result-content" class="result-content">
+                    
                     <div class="user-info">
-                        <div class="user-photo-circle">
+                        <div class="user-photo-circle" id="result-photo-container">
+                             <input type="file" id="result-user-photo-input" accept="image/*" style="display: none;">
                             <img id="result-user-photo" alt="Foto do usuário">
                         </div>
                         <h1 id="result-user-name" class="user-name"></h1>
-                    </div>
-
-                    <div class="archetype-info">
-                        <div class="archetype-image">
-                            <img id="archetype-img" alt="Arquétipo">
-                        </div>
                         <h2 id="archetype-name" class="archetype-name"></h2>
                         <p id="archetype-description" class="archetype-description"></p>
                     </div>
@@ -170,7 +161,6 @@
         </div>
     </div>
 
-    <!-- Audio Elements -->
     <audio id="click-sound" preload="auto">
         <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
     </audio>
