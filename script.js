@@ -380,3 +380,14 @@ function shareResult() {
         alert('Erro ao gerar imagem. Tente novamente.');
     });
 }
+
+// ===============================================
+// CÓDIGO DE PROTEÇÃO ADICIONADO AQUI NO FINAL
+// ===============================================
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('keydown', event => {
+    // Bloquear Ctrl+C, Ctrl+U, Ctrl+S
+    if (event.ctrlKey && ['c', 'u', 's'].includes(event.key.toLowerCase())) {
+        event.preventDefault();
+    }
+});
