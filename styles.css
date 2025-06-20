@@ -688,7 +688,8 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     text-align: center;
-    margin-top: 3rem; /* Aumenta o espaço depois dos perfumes */
+    margin-top: 2rem; /* Espaço reduzido depois dos perfumes */
+    margin-bottom: 2rem; /* Adiciona um espaço antes do botão de compartilhar */
     opacity: 0.8;
 }
 
