@@ -89,7 +89,7 @@ body {
 
 /* Buttons */
 .btn-primary, .btn-secondary, .btn-whatsapp {
-    padding: 15px 30px;
+    padding: 15px 220px;
     border: none;
     border-radius: 50px;
     font-size: 1.1rem;
@@ -685,6 +685,6 @@ body {
 
 /* Adicione esta nova regra para aumentar o botão específico */
 #start-btn {
-    padding: 17px 75px; /* Deixa o botão maior e mais largo */
+    padding: 17px 100px; /* Deixa o botão maior e mais largo */
     font-size: 1.2rem; /* Aumenta a fonte do botão */
 }
