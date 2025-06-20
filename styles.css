@@ -642,7 +642,7 @@ body {
     border: none;
     height: 2px;
     width: 244px; /* Largura da barra */
-    margin: 0.1rem auto 2.5rem; /* Espaçamento vertical e centralização */
+    margin: 0.1rem auto 1.5rem; /* Espaçamento vertical e centralização */
     background: linear-gradient(90deg, transparent, #FFD700, transparent);
     opacity: 0.8;
 }
@@ -650,14 +650,14 @@ body {
 /* SUBSTITUA a regra .welcome-content h2 por esta: */
 .welcome-content h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;  /* <-- Fonte significativamente menor */
+    font-size: 1.2rem;  /* <-- Fonte significativamente menor */
     margin-bottom: 1rem;
     color: #FFD700;
 }
 
 /* SUBSTITUA a regra .welcome-content p por esta: */
 .welcome-content p {
-    font-size: 0.8rem; /* <-- Fonte significativamente menor */
+    font-size: 1.0rem; /* <-- Fonte significativamente menor */
     color: #cccccc;
     margin-bottom: 1.8rem;
     line-height: 1.6;
