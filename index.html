@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fragrance Play - Descubra Sua Assinatura Olfativa</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js" defer></script>
-    
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -31,7 +27,7 @@
         <div id="identification-screen" class="screen">
             <div class="container">
                 <div class="progress-bar">
-                    <div class="progress" style="width: 10%"></div>
+                    <div class="progress" style="width: 10%;"></div>
                 </div>
                 <h2>Vamos nos conhecer melhor</h2>
                 <form id="user-form">
@@ -124,9 +120,10 @@
         <div id="results-screen" class="screen">
             <div class="container">
                 <div id="result-content" class="result-content">
+                    
                     <div class="user-info">
                         <div class="user-photo-circle" id="result-photo-container">
-                            <input type="file" id="result-user-photo-input" accept="image/*" style="display: none;">
+                             <input type="file" id="result-user-photo-input" accept="image/*" style="display: none;">
                             <img id="result-user-photo" alt="Foto do usuário">
                         </div>
                         <h1 id="result-user-name" class="user-name"></h1>
@@ -150,7 +147,7 @@
                         <div id="recommended-perfumes" class="perfumes-grid"></div>
                     </div>
                 </div>
-             <p class="credits-footer">Feito com Amor 💛 por Lord Aroma</p>
+
                 <div class="action-buttons">
                     <button id="share-btn" class="btn-secondary">📤 Compartilhar Resultado</button>
                     <div class="cta-section">
@@ -160,19 +157,6 @@
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="crop-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <h2>Ajuste sua foto</h2>
-            <div class="crop-container">
-                <img id="image-to-crop">
-            </div>
-            <div class="modal-buttons">
-                <button id="cancel-crop-btn" class="btn-secondary">Cancelar</button>
-                <button id="confirm-crop-btn" class="btn-primary">Confirmar</button>
             </div>
         </div>
     </div>
