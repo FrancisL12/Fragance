@@ -311,10 +311,41 @@ function displayPerfumeRecommendations() {
 
 function shareResult() {
     const resultContent = document.getElementById('result-content');
-    html2canvas(resultContent, { backgroundColor: '#000000', scale: 2, useCORS: true }).then(canvas => {
+    const width = resultContent.offsetWidth;
+    const height = resultContent.offsetHeight;
+    const aspectRatio = 9 / 16;
+
+    let targetWidth = width;
+    let targetHeight = Math.round(targetWidth / aspectRatio);
+
+    // Se a altura calculada for menor que a altura original, usamos a altura original
+    if (targetHeight < height) {
+        targetHeight = height;
+        targetWidth = Math.round(targetHeight * aspectRatio);
+    }
+
+    html2canvas(resultContent, {
+        backgroundColor: '#000000',
+        scale: 2,
+        useCORS: true,
+        width: targetWidth,
+        height: targetHeight,
+        x: (width - targetWidth) / 2, // Centralizar se a largura for menor
+        y: 0
+    }).then(canvas => {
+        const finalCanvas = document.createElement('canvas');
+        const finalCtx = finalCanvas.getContext('2d');
+        const padding = 20; // Tamanho da borda
+
+        finalCanvas.width = targetWidth + 2 * padding;
+        finalCanvas.height = targetHeight + 2 * padding;
+        finalCtx.fillStyle = '#1a1a1a'; // Cor do fundo com a borda
+        finalCtx.fillRect(0, 0, finalCanvas.width, finalCanvas.height);
+        finalCtx.drawImage(canvas, padding, padding);
+
         const link = document.createElement('a');
         link.download = `meu-perfil-olfativo-${(currentState.userProfile.name || 'perfil').toLowerCase().replace(/\s+/g, '-')}.png`;
-        link.href = canvas.toDataURL();
+        link.href = finalCanvas.toDataURL();
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -323,7 +354,10 @@ function shareResult() {
         const originalText = button.textContent;
         button.textContent = '✅ Imagem salva!';
         button.style.background = '#25D366';
-        setTimeout(() => { button.textContent = originalText; button.style.background = ''; }, 3000);
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.background = '';
+        }, 3000);
     }).catch(error => {
         console.error('Erro ao gerar imagem:', error);
         alert('Erro ao gerar imagem. Tente novamente.');
