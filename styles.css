@@ -647,25 +647,23 @@ body {
     opacity: 0.8;
 }
 
-
-/* MODIFIQUE a regra existente para .welcome-content h2
-  (Diminuindo a fonte de 2.5rem para 2rem)
-*/
+/* SUBSTITUA a regra .welcome-content h2 por esta: */
 .welcome-content h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;  /*<-- VALOR ALTERADO*/
-    margin-bottom: 0.8rem; /*<-- VALOR AJUSTADO*/
+    font-size: 1.6rem;  /* <-- Fonte significativamente menor */
+    margin-bottom: 1rem;
     color: #FFD700;
 }
 
-/* MODIFIQUE a regra existente para .welcome-content p
-  (Diminuindo a fonte de 1.2rem para 1rem)
-*/
+/* SUBSTITUA a regra .welcome-content p por esta: */
 .welcome-content p {
-    font-size: 1rem; /*<-- VALOR ALTERADO*/
+    font-size: 0.9rem; /* <-- Fonte significativamente menor */
     color: #cccccc;
     margin-bottom: 3rem;
     line-height: 1.6;
+    max-width: 350px; /* Garante que o texto não fique muito largo */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*
