@@ -46,7 +46,7 @@ body {
 .logo-image {
     width: 140px;
     height: 140px;
-    margin-bottom: 0.5rem; /* <<< VALOR DIMINUÍDO PARA APROXIMAR A IMAGEM DO TÍTULO */
+    margin-bottom: 0.5rem;
 }
 
 .logo h1 {
@@ -389,7 +389,7 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-    margin-bottom: 1.5rem; 
+    margin-bottom: 0; /* CORREÇÃO: Margem inferior zerada */
 }
 
 .info-section {
@@ -479,7 +479,7 @@ body {
 }
 
 .action-buttons {
-    margin-top: 1.5rem;
+    margin-top: 2rem;  /* CORREÇÃO: Margem superior ajustada para o padrão */
     display: flex;
     flex-direction: column;
     align-items: center; 
