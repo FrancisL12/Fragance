@@ -657,7 +657,7 @@ body {
 
 /* SUBSTITUA a regra .welcome-content p por esta: */
 .welcome-content p {
-    font-size: 1.0rem; /* <-- Fonte significativamente menor */
+    font-size: 0.8rem; /* <-- Fonte significativamente menor */
     color: #cccccc;
     margin-bottom: 1.8rem;
     line-height: 1.6;
