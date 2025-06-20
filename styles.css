@@ -47,7 +47,7 @@ body {
 .logo-image {
     width: 140px;
     height: 140px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .logo h1 {
@@ -640,9 +640,9 @@ body {
 */
 .golden-divider {
     border: none;
-    height: 5px;
-    width: 250px; /* Largura da barra */
-    margin: 2.5rem auto 2.5rem; /* Espaçamento vertical e centralização */
+    height: 2px;
+    width: 244px; /* Largura da barra */
+    margin: -1.5rem auto 2.5rem; /* Espaçamento vertical e centralização */
     background: linear-gradient(90deg, transparent, #FFD700, transparent);
     opacity: 0.8;
 }
@@ -685,6 +685,6 @@ body {
 
 /* Adicione esta nova regra para aumentar o botão específico */
 #start-btn {
-    padding: 18px 45px; /* Deixa o botão maior e mais largo */
+    padding: 17px 75px; /* Deixa o botão maior e mais largo */
     font-size: 1.2rem; /* Aumenta a fonte do botão */
 }
